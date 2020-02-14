@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: phanidepday5
+  name: phanidepday5
+  namespace: phanins #optional
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: phanidepday5
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: phanidepday5
+      namespace: phanins
+    spec:
+      containers:
+      - image: phaniraj163/eyappday5:v1
+        name: eyappday5
+        imagePullPolicy: Always
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: phanidepsvc1
+  name: phanidepsvc1
+  namespace: phanins
+spec:
+  ports:
+  - name: "80"
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: phanidepday5
+  type: NodePort
+status:
+  loadBalancer: {}
